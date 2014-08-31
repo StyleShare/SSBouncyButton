@@ -10,6 +10,10 @@ Take A Look
 Try It!
 -------
 
-Just use as a UIButton.
+Just use like a UIButton. [Sample code on GitHub](https://github.com/StyleShare/SSBouncyButton/blob/master/SSBouncyButtonDemo/SSBouncyButtonDemo/SSAppDelegate.m#L44:L57).
 
-Sample code here: [Sample Code](https://github.com/StyleShare/SSBouncyButton/blob/master/SSBouncyButtonDemo/SSBouncyButtonDemo/SSAppDelegate.m#L44:L57)
+
+License
+-------
+
+SSBouncyButton is under MIT license, copyrighted by both [Suyeol Jeon](http://xoul.kr) and [StyleShare](https://stylesha.re). See [LICENSE](https://github.com/StyleShare/SSBouncyButton/blob/master/LICENSE).
