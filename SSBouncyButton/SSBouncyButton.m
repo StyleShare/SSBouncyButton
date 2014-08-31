@@ -1,0 +1,173 @@
+//
+// The MIT License (MIT)
+//
+// Copyright (c) 2014 Suyeol Jeon (http://xoul.kr),
+//                    StyleShare (https://stylesha.re)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+
+#import <BRYSerialAnimationQueue/BRYSerialAnimationQueue.h>
+#import <UIColor-Hex/UIColor+Hex.h>
+#import <UIImage+BetterAdditions/UIImage+BetterAdditions.h>
+
+#import "SSBouncyButton.h"
+
+@interface SSBouncyButton ()
+
+@property (nonatomic, strong) NSTimer *touchDelayTimer;
+@property (nonatomic, assign) BOOL isShrinking;
+@property (nonatomic, assign) BOOL touchEnded;
+
+@end
+
+
+@implementation SSBouncyButton
+
+- (id)init
+{
+    return [self initWithFrame:CGRectZero];
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.adjustsImageWhenHighlighted = NO;
+        self.tintColor = [UIColor colorWithHex:SSBouncyButtonDefaultTintColor];
+        self.titleLabel.font = [UIFont systemFontOfSize:SSBouncyButtonDefaultTitleLabelFontSize];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected | UIControlStateHighlighted];
+    }
+    return self;
+}
+
+- (void)setTintColor:(UIColor *)tintColor
+{
+    [super setTintColor:tintColor];
+    [self setTitleColor:tintColor forState:UIControlStateNormal];
+    
+    NSDictionary *borderAttrs = @{NSStrokeColorAttributeName: tintColor,
+                                  NSStrokeWidthAttributeName: @(SSBouncyButtonDefaultBorderWidth)};
+    
+    UIImage *normalBackgroundImage = [UIImage resizableImageWithColor:[UIColor whiteColor]
+                                                     borderAttributes:borderAttrs
+                                                         cornerRadius:SSBouncyButtonDefaultCornerRadius];
+    UIImage *selectedBackgroundImage = [UIImage resizableImageWithColor:self.tintColor
+                                                       borderAttributes:borderAttrs
+                                                           cornerRadius:SSBouncyButtonDefaultCornerRadius];
+    [self setBackgroundImage:normalBackgroundImage forState:UIControlStateNormal];
+    [self setBackgroundImage:selectedBackgroundImage forState:UIControlStateSelected];
+    [self setBackgroundImage:selectedBackgroundImage forState:UIControlStateSelected | UIControlStateHighlighted];
+}
+
+- (void)setTitle:(NSString *)title forState:(UIControlState)state
+{
+    [super setTitle:title forState:state];
+    if (state == UIControlStateSelected) {
+        [self setTitle:title forState:UIControlStateSelected | UIControlStateHighlighted];
+    }
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    
+    self.touchEnded = NO;
+    self.touchDelayTimer = [NSTimer timerWithTimeInterval:0.15
+                                                   target:self
+                                                 selector:@selector(beginShrinkAnimation)
+                                                 userInfo:nil
+                                                  repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:self.touchDelayTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesEnded:touches withEvent:event];
+    
+    self.touchEnded = YES;
+    [self.touchDelayTimer invalidate];
+    [self beginEnlargeAnimation];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesCancelled:touches withEvent:event];
+
+    self.touchEnded = YES;
+    [self.touchDelayTimer invalidate];
+    [self beginEnlargeAnimation];
+}
+
+- (void)beginShrinkAnimation
+{
+    [self.touchDelayTimer invalidate];
+    BRYSerialAnimationQueue *queue = [[BRYSerialAnimationQueue alloc] init];
+    [queue animateWithDuration:0.3 animations:^{
+        self.isShrinking = YES;
+        self.transform = CGAffineTransformMakeScale(0.84, 0.84);
+    }];
+    [queue animateWithDuration:0.15 animations:^{
+        if (self.touchEnded) {
+            self.isShrinking = NO;
+            return;
+        }
+        self.transform = CGAffineTransformMakeScale(0.86, 0.86);
+    }];
+    [queue animateWithDuration:0.1 animations:^{
+        if (self.touchEnded) {
+            self.isShrinking = NO;
+            return;
+        }
+        self.transform = CGAffineTransformMakeScale(0.85, 0.85);
+    } completion:^(BOOL finished) {
+        self.isShrinking = NO;
+    }];
+}
+
+- (void)beginEnlargeAnimation
+{
+    BRYSerialAnimationQueue *queue = [[BRYSerialAnimationQueue alloc] init];
+    
+    // 롱터치를 하여 shrink 상태일 경우 중간값 사용
+    if (self.isShrinking) {
+        self.isShrinking = NO;
+        CALayer *presentationLayer = self.layer.presentationLayer;
+        self.transform = CATransform3DGetAffineTransform(presentationLayer.transform);
+        [queue animateWithDuration:0.1 animations:^{
+            self.transform = CGAffineTransformMakeScale(0.85, 0.85);
+        }];
+    } else {
+        [queue animateWithDuration:0.1 animations:^{
+            self.transform = CGAffineTransformMakeScale(0.85, 0.85);
+        }];
+    }
+    [queue animateWithDuration:0.18 animations:^{
+        self.transform = CGAffineTransformMakeScale(1.05, 1.05);
+    }];
+    [queue animateWithDuration:0.15 animations:^{
+        self.transform = CGAffineTransformMakeScale(0.96, 0.96);
+    }];
+    [queue animateWithDuration:0.12 animations:^{
+        self.transform = CGAffineTransformIdentity;
+    }];
+}
+
+@end
