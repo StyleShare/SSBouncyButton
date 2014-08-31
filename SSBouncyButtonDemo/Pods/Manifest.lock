@@ -1,0 +1,16 @@
+PODS:
+  - BRYSerialAnimationQueue (1.0.0)
+  - UIColor-Hex (0.1.1)
+  - UIImage+BetterAdditions (2.0.0)
+
+DEPENDENCIES:
+  - BRYSerialAnimationQueue (~> 1.0)
+  - UIColor-Hex
+  - UIImage+BetterAdditions (~> 2.0)
+
+SPEC CHECKSUMS:
+  BRYSerialAnimationQueue: 0b473cd08bb20b10155f1f8ee300028c10353ead
+  UIColor-Hex: 658893617840e46ee5ac786e094b67786d9cb19d
+  UIImage+BetterAdditions: c8692a2ad7a630127662f0b4beb82f9a6cbcffd6
+
+COCOAPODS: 0.33.1

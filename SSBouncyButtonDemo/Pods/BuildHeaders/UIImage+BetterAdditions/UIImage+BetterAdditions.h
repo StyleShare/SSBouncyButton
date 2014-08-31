@@ -1,0 +1,1 @@
+../../UIImage+BetterAdditions/UIImage+BetterAdditions.h

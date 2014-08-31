@@ -1,0 +1,1 @@
+../../BRYSerialAnimationQueue/Classes/BRYSerialAnimationQueue.h
