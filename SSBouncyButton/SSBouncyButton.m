@@ -51,6 +51,7 @@
     if (self) {
         self.adjustsImageWhenHighlighted = NO;
         self.tintColor = [UIColor colorWithHex:SSBouncyButtonDefaultTintColor];
+        self.cornerRadius = SSBouncyButtonDefaultCornerRadius;
         self.titleLabel.font = [UIFont systemFontOfSize:SSBouncyButtonDefaultTitleLabelFontSize];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected | UIControlStateHighlighted];
@@ -58,23 +59,20 @@
     return self;
 }
 
+
+#pragma mark - Properties
+
 - (void)setTintColor:(UIColor *)tintColor
 {
     [super setTintColor:tintColor];
     [self setTitleColor:tintColor forState:UIControlStateNormal];
-    
-    NSDictionary *borderAttrs = @{NSStrokeColorAttributeName: tintColor,
-                                  NSStrokeWidthAttributeName: @(SSBouncyButtonDefaultBorderWidth)};
-    
-    UIImage *normalBackgroundImage = [UIImage resizableImageWithColor:[UIColor whiteColor]
-                                                     borderAttributes:borderAttrs
-                                                         cornerRadius:SSBouncyButtonDefaultCornerRadius];
-    UIImage *selectedBackgroundImage = [UIImage resizableImageWithColor:self.tintColor
-                                                       borderAttributes:borderAttrs
-                                                           cornerRadius:SSBouncyButtonDefaultCornerRadius];
-    [self setBackgroundImage:normalBackgroundImage forState:UIControlStateNormal];
-    [self setBackgroundImage:selectedBackgroundImage forState:UIControlStateSelected];
-    [self setBackgroundImage:selectedBackgroundImage forState:UIControlStateSelected | UIControlStateHighlighted];
+    [self updateBackgroundImage];
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    [self updateBackgroundImage];
 }
 
 - (void)setTitle:(NSString *)title forState:(UIControlState)state
@@ -84,6 +82,28 @@
         [self setTitle:title forState:UIControlStateSelected | UIControlStateHighlighted];
     }
 }
+
+
+#pragma mark - Draw
+
+- (void)updateBackgroundImage
+{
+    NSDictionary *borderAttrs = @{NSStrokeColorAttributeName: self.tintColor,
+                                  NSStrokeWidthAttributeName: @(SSBouncyButtonDefaultBorderWidth)};
+    
+    UIImage *normalBackgroundImage = [UIImage resizableImageWithColor:[UIColor whiteColor]
+                                                     borderAttributes:borderAttrs
+                                                         cornerRadius:self.cornerRadius];
+    UIImage *selectedBackgroundImage = [UIImage resizableImageWithColor:self.tintColor
+                                                       borderAttributes:borderAttrs
+                                                           cornerRadius:self.cornerRadius];
+    [self setBackgroundImage:normalBackgroundImage forState:UIControlStateNormal];
+    [self setBackgroundImage:selectedBackgroundImage forState:UIControlStateSelected];
+    [self setBackgroundImage:selectedBackgroundImage forState:UIControlStateSelected | UIControlStateHighlighted];
+}
+
+
+#pragma mark - Touch Event
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -115,6 +135,9 @@
     [self.touchDelayTimer invalidate];
     [self beginEnlargeAnimation];
 }
+
+
+#pragma mark - Animations
 
 - (void)beginShrinkAnimation
 {

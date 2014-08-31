@@ -48,13 +48,15 @@ static CGFloat centerY;
     [followButton addTarget:self action:@selector(buttonDidPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.window addSubview:followButton];
     
-    SSBouncyButton *tintedButton = [[SSBouncyButton alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-    tintedButton.tintColor = [UIColor grayColor];
-    tintedButton.center = CGPointMake(centerX, centerY + 25);
-    [tintedButton setTitle:@"Follow" forState:UIControlStateNormal];
-    [tintedButton setTitle:@"Following" forState:UIControlStateSelected];
-    [tintedButton addTarget:self action:@selector(buttonDidPress:) forControlEvents:UIControlEventTouchUpInside];
-    [self.window addSubview:tintedButton];
+    // tintColor, cornerRadius
+    SSBouncyButton *customButton = [[SSBouncyButton alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+    customButton.center = CGPointMake(centerX, centerY + 25);
+    customButton.tintColor = [UIColor grayColor];
+    customButton.cornerRadius = 5;
+    [customButton setTitle:@"Follow" forState:UIControlStateNormal];
+    [customButton setTitle:@"Following" forState:UIControlStateSelected];
+    [customButton addTarget:self action:@selector(buttonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.window addSubview:customButton];
     
     return YES;
 }
