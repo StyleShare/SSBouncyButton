@@ -91,7 +91,7 @@
     NSDictionary *borderAttrs = @{NSStrokeColorAttributeName: self.tintColor,
                                   NSStrokeWidthAttributeName: @(SSBouncyButtonDefaultBorderWidth)};
     
-    UIImage *normalBackgroundImage = [UIImage resizableImageWithColor:[UIColor whiteColor]
+    UIImage *normalBackgroundImage = [UIImage resizableImageWithColor:[UIColor clearColor]
                                                      borderAttributes:borderAttrs
                                                          cornerRadius:self.cornerRadius];
     UIImage *selectedBackgroundImage = [UIImage resizableImageWithColor:self.tintColor
