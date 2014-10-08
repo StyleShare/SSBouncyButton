@@ -145,16 +145,16 @@
     BRYSerialAnimationQueue *queue = [[BRYSerialAnimationQueue alloc] init];
     [queue animateWithDuration:0.3 animations:^{
         self.isShrinking = YES;
-        self.transform = CGAffineTransformMakeScale(0.84, 0.84);
+        self.transform = CGAffineTransformMakeScale(0.83, 0.83);
     }];
-    [queue animateWithDuration:0.15 animations:^{
+    [queue animateWithDuration:0.2 animations:^{
         if (self.touchEnded) {
             self.isShrinking = NO;
             return;
         }
         self.transform = CGAffineTransformMakeScale(0.86, 0.86);
     }];
-    [queue animateWithDuration:0.1 animations:^{
+    [queue animateWithDuration:0.18 animations:^{
         if (self.touchEnded) {
             self.isShrinking = NO;
             return;
@@ -185,10 +185,13 @@
     [queue animateWithDuration:0.18 animations:^{
         self.transform = CGAffineTransformMakeScale(1.05, 1.05);
     }];
-    [queue animateWithDuration:0.15 animations:^{
-        self.transform = CGAffineTransformMakeScale(0.96, 0.96);
+    [queue animateWithDuration:0.18 animations:^{
+        self.transform = CGAffineTransformMakeScale(0.98, 0.98);
     }];
-    [queue animateWithDuration:0.12 animations:^{
+    [queue animateWithDuration:0.17 animations:^{
+        self.transform = CGAffineTransformMakeScale(1.01, 1.01);
+    }];
+    [queue animateWithDuration:0.17 animations:^{
         self.transform = CGAffineTransformIdentity;
     }];
 }
