@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SSBouncyButton"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "iOS7-style bouncy button."
   s.homepage     = "http://github.com/StyleShare/SSBouncyButton"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
