@@ -12,7 +12,7 @@ Take A Look
 Try It!
 -------
 
-```
+```ruby
 pod 'SSBouncyButton', '~> 1.0'
 ```
 
