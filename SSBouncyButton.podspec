@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency 'BRYSerialAnimationQueue', '~> 1.0'
-  s.dependency 'UIColor-Hex'
+  s.dependency 'UIColor-Hex', '~> 0.1'
   s.dependency 'UIImage+BetterAdditions', '~> 2.0'
 end
