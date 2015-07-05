@@ -91,7 +91,7 @@
 {
     NSDictionary *borderAttrs = @{NSStrokeColorAttributeName: self.tintColor,
                                   NSStrokeWidthAttributeName: @(SSBouncyButtonDefaultBorderWidth)};
-    
+
     UIImage *normalBackgroundImage = [UIImage resizableImageWithColor:[UIColor clearColor]
                                                      borderAttributes:borderAttrs
                                                          cornerRadius:self.cornerRadius];
@@ -109,7 +109,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-    
+
     self.touchEnded = NO;
     self.touchDelayTimer = [NSTimer timerWithTimeInterval:0.15
                                                    target:self
@@ -122,7 +122,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
-    
+
     self.touchEnded = YES;
     [self.touchDelayTimer invalidate];
     [self beginEnlargeAnimation];
@@ -176,7 +176,7 @@
     self.isShrinked = NO;
 
     BRYSerialAnimationQueue *queue = [[BRYSerialAnimationQueue alloc] init];
-    
+
     // 롱터치를 하여 shrink 상태일 경우 중간값 사용
     if (self.isShrinking) {
         self.isShrinking = NO;
