@@ -33,6 +33,7 @@
 
 @property (nonatomic, strong) NSTimer *touchDelayTimer;
 @property (nonatomic, assign) BOOL isShrinking;
+@property (nonatomic, assign) BOOL isShrinked;
 @property (nonatomic, assign) BOOL touchEnded;
 
 @end
@@ -133,7 +134,10 @@
 
     self.touchEnded = YES;
     [self.touchDelayTimer invalidate];
-    [self beginEnlargeAnimation];
+
+    if (self.isShrinked) {
+        [self beginEnlargeAnimation];
+    }
 }
 
 
@@ -142,6 +146,8 @@
 - (void)beginShrinkAnimation
 {
     [self.touchDelayTimer invalidate];
+    self.isShrinked = YES;
+
     BRYSerialAnimationQueue *queue = [[BRYSerialAnimationQueue alloc] init];
     [queue animateWithDuration:0.3 animations:^{
         self.isShrinking = YES;
@@ -167,6 +173,8 @@
 
 - (void)beginEnlargeAnimation
 {
+    self.isShrinked = NO;
+
     BRYSerialAnimationQueue *queue = [[BRYSerialAnimationQueue alloc] init];
     
     // 롱터치를 하여 shrink 상태일 경우 중간값 사용
