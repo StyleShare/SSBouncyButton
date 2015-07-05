@@ -6,7 +6,7 @@ SSBouncyButton is simple button UI component with iOS 7-style bouncy animation.
 Take A Look
 -----------
 
-![SSBouncyButton](DemoMovie/SSBouncyButton.gif)
+<img src="https://github.com/StyleShare/SSBouncyButton/raw/master/DemoMovie/SSBouncyButton.gif" alt="SSBouncyButton" width="300">
 
 
 Try It!
