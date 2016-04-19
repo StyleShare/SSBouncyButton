@@ -46,6 +46,19 @@
     return [self initWithFrame:CGRectZero];
 }
 
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if(self){
+        self.adjustsImageWhenHighlighted = NO;
+        self.tintColor = [UIColor colorWithHex:SSBouncyButtonDefaultTintColor];
+        self.cornerRadius = SSBouncyButtonDefaultCornerRadius;
+        self.titleLabel.font = [UIFont systemFontOfSize:SSBouncyButtonDefaultTitleLabelFontSize];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected | UIControlStateHighlighted];
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
