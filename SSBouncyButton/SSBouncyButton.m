@@ -24,8 +24,22 @@
 //
 
 #import <BRYSerialAnimationQueue/BRYSerialAnimationQueue.h>
+
+#if __has_include(<UIColor-Hex/UIColor+Hex.h>)
 #import <UIColor-Hex/UIColor+Hex.h>
+#endif
+
+#if __has_include(<UIColor_Hex/UIColor+Hex.h>)
+#import <UIColor_Hex/UIColor+Hex.h>
+#endif
+
+#if __has_include(<UIImage+BetterAdditions/UIImage+BetterAdditions.h>)
 #import <UIImage+BetterAdditions/UIImage+BetterAdditions.h>
+#endif
+
+#if __has_include(<UIImage_BetterAdditions/UIImage+BetterAdditions.h>)
+#import <UIImage_BetterAdditions/UIImage+BetterAdditions.h>
+#endif
 
 #import "SSBouncyButton.h"
 
