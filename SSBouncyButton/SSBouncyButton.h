@@ -33,5 +33,7 @@ static CGFloat SSBouncyButtonDefaultCornerRadius = 3;
 @interface SSBouncyButton : UIButton
 
 @property (nonatomic, assign) CGFloat cornerRadius;
+@property (nonatomic, assign) CGFloat increaseRate;
+@property (nonatomic, assign) CGFloat decreaseRate;
 
 @end

@@ -65,6 +65,8 @@
     if(self){
         self.adjustsImageWhenHighlighted = NO;
         self.cornerRadius = SSBouncyButtonDefaultCornerRadius;
+        self.increaseRate = 1.0f;
+        self.decreaseRate = 1.0f;
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected | UIControlStateHighlighted];
     }
@@ -79,6 +81,8 @@
         self.tintColor = [UIColor colorWithHex:SSBouncyButtonDefaultTintColor];
         self.cornerRadius = SSBouncyButtonDefaultCornerRadius;
         self.titleLabel.font = [UIFont systemFontOfSize:SSBouncyButtonDefaultTitleLabelFontSize];
+        self.increaseRate = 1.0f;
+        self.decreaseRate = 1.0f;
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected | UIControlStateHighlighted];
     }
@@ -176,21 +180,21 @@
     BRYSerialAnimationQueue *queue = [[BRYSerialAnimationQueue alloc] init];
     [queue animateWithDuration:0.3 animations:^{
         self.isShrinking = YES;
-        self.transform = CGAffineTransformMakeScale(0.83, 0.83);
+        self.transform = CGAffineTransformMakeScale(0.83 * self.decreaseRate, 0.83 * self.decreaseRate);
     }];
     [queue animateWithDuration:0.2 animations:^{
         if (self.touchEnded) {
             self.isShrinking = NO;
             return;
         }
-        self.transform = CGAffineTransformMakeScale(0.86, 0.86);
+        self.transform = CGAffineTransformMakeScale(0.86 * self.decreaseRate, 0.86 * self.decreaseRate);
     }];
     [queue animateWithDuration:0.18 animations:^{
         if (self.touchEnded) {
             self.isShrinking = NO;
             return;
         }
-        self.transform = CGAffineTransformMakeScale(0.85, 0.85);
+        self.transform = CGAffineTransformMakeScale(0.85 * self.decreaseRate, 0.85 * self.decreaseRate);
     } completion:^(BOOL finished) {
         self.isShrinking = NO;
     }];
@@ -208,21 +212,21 @@
         CALayer *presentationLayer = self.layer.presentationLayer;
         self.transform = CATransform3DGetAffineTransform(presentationLayer.transform);
         [queue animateWithDuration:0.1 animations:^{
-            self.transform = CGAffineTransformMakeScale(0.85, 0.85);
+            self.transform = CGAffineTransformMakeScale(0.85 * self.decreaseRate, 0.85 * self.decreaseRate);
         }];
     } else {
         [queue animateWithDuration:0.1 animations:^{
-            self.transform = CGAffineTransformMakeScale(0.85, 0.85);
+            self.transform = CGAffineTransformMakeScale(0.85 * self.decreaseRate, 0.85 * self.decreaseRate);
         }];
     }
     [queue animateWithDuration:0.18 animations:^{
-        self.transform = CGAffineTransformMakeScale(1.05, 1.05);
+        self.transform = CGAffineTransformMakeScale(1.05 * self.increaseRate, 1.05 * self.increaseRate);
     }];
     [queue animateWithDuration:0.18 animations:^{
-        self.transform = CGAffineTransformMakeScale(0.98, 0.98);
+        self.transform = CGAffineTransformMakeScale(0.98 * self.decreaseRate, 0.98 * self.decreaseRate);
     }];
     [queue animateWithDuration:0.17 animations:^{
-        self.transform = CGAffineTransformMakeScale(1.01, 1.01);
+        self.transform = CGAffineTransformMakeScale(1.01 * self.increaseRate, 1.01 * self.increaseRate);
     }];
     [queue animateWithDuration:0.17 animations:^{
         self.transform = CGAffineTransformIdentity;

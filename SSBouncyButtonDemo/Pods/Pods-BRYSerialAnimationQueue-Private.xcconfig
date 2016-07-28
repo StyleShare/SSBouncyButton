@@ -1,5 +1,0 @@
-#include "Pods-BRYSerialAnimationQueue.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/BRYSerialAnimationQueue" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BRYSerialAnimationQueue" "${PODS_ROOT}/Headers/UIColor-Hex" "${PODS_ROOT}/Headers/UIImage+BetterAdditions"
-OTHER_LDFLAGS = -ObjC ${PODS_BRYSERIALANIMATIONQUEUE_OTHER_LDFLAGS}
-PODS_ROOT = ${SRCROOT}

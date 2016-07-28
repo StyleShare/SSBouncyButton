@@ -1,6 +1,10 @@
 UIImage-BetterAdditions
 =======================
 
+## Deprecated. Use [SwiftyImage](https://github.com/devxoul/SwiftyImage) instead.
+
+---
+
 This category of UIImage add methods to generate dynamically images from colors, adding corner radius (for each corner), tinting images, etc. Use this category if you want to add "colored style" to your app without having to generate colored graphic resources.
 
 Right now the category supports four types of operations:

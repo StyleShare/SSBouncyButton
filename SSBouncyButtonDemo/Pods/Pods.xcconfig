@@ -1,5 +1,0 @@
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BRYSerialAnimationQueue" "${PODS_ROOT}/Headers/UIColor-Hex" "${PODS_ROOT}/Headers/UIImage+BetterAdditions"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/BRYSerialAnimationQueue" -isystem "${PODS_ROOT}/Headers/UIColor-Hex" -isystem "${PODS_ROOT}/Headers/UIImage+BetterAdditions"
-OTHER_LDFLAGS = -ObjC -framework Foundation -framework UIKit
-PODS_ROOT = ${SRCROOT}/Pods
